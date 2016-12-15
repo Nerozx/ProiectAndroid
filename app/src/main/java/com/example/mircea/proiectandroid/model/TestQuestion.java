@@ -13,6 +13,18 @@ public class TestQuestion {
     private List<TestAnswer> question_answer_list;
     private float question_points;
 
+    public TestQuestion() {
+    }
+
+    public TestQuestion(int question_id, String question_text, int question_no_ans,
+                        List<TestAnswer> question_answer_list, float question_points) {
+        this.question_id = question_id;
+        this.question_text = question_text;
+        this.question_no_ans = question_no_ans;
+        this.question_answer_list = question_answer_list;
+        this.question_points = question_points;
+    }
+
     public int getQuestion_id() {
         return question_id;
     }
