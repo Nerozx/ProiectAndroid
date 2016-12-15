@@ -37,6 +37,7 @@ public class CreateTestActivity extends AppCompatActivity {
                 questionzone.setHint("Insert Question Here");
                 add_answer.setText("Add Answer");
                 multipleans_switch.setText("Multiple Correct Answer Question?");
+
                 add_answer.setOnClickListener(new View.OnClickListener() {
 
                     @Override
