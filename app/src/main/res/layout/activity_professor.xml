@@ -14,4 +14,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="HI I AM A TEACHER!"/>
+
+    <Button
+        android:text="Search For Students"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_search"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/button_create_test"
+        android:layout_alignStart="@+id/button_create_test"
+        />
+
+    <Button
+        android:text="Create A new Test"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/button_create_test"
+        android:layout_above="@+id/button_search"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
