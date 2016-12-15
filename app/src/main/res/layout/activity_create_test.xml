@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_create_test"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.mircea.proiectandroid.CreateTestActivity">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/question_zone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/question_adder"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"/>
+
+
+    <Button
+        android:text="Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/question_zone"
+        android:id="@+id/button" />
+
+    <TextView
+        android:text="Subject:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/subject_text"
+        android:layout_alignBaseline="@+id/subject_box"
+        android:layout_alignBottom="@+id/subject_box"
+        android:layout_toStartOf="@+id/subject_box"
+        android:layout_toLeftOf="@+id/subject_box" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Enter Test Name"
+        android:ems="10"
+        android:id="@+id/test_name_box"
+        android:layout_below="@+id/subject_box"
+        android:layout_alignLeft="@+id/subject_box"
+        android:layout_alignStart="@+id/subject_box"
+        />
+
+    <TextView
+        android:text="Test Name:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/test_name_text"
+        android:layout_alignBaseline="@+id/test_name_box"
+        android:layout_alignBottom="@+id/test_name_box"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Enter Subject Name"
+        android:ems="10"
+        android:id="@+id/subject_box"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/test_name_text"
+        android:layout_toEndOf="@+id/test_name_text"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/question_adder"
+        android:text="Add Question"
+        android:layout_below="@+id/test_name_box"
+       />
+
+
+</RelativeLayout>
