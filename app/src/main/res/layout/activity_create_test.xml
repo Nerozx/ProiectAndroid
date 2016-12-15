@@ -11,23 +11,32 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.mircea.proiectandroid.CreateTestActivity">
 
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/question_adder">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/question_zone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/question_adder"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"/>
+
+        android:layout_marginTop="15dp">
 
 
+    </LinearLayout>
     <Button
-        android:text="Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/button_create_test"
         android:layout_below="@+id/question_zone"
-        android:id="@+id/button" />
+        android:text="Create Test"/>
+    </RelativeLayout>
+    </ScrollView>
+
 
     <TextView
         android:text="Subject:"
