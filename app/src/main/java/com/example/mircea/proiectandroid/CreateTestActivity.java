@@ -56,5 +56,12 @@ public class CreateTestActivity extends AppCompatActivity {
                 linearLayout.addView(add_answer);
             }
         });
+
+        createTest_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 }
