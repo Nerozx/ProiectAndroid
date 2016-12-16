@@ -4,8 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Switch;
 
 public class CreateTestActivity extends AppCompatActivity {
 
@@ -28,8 +32,28 @@ public class CreateTestActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText questionzone=new EditText(CreateTestActivity.this);
-                questionzone.setHint("TEST TEST TEST");
+                Switch multipleans_switch=new Switch(CreateTestActivity.this);
+                Button add_answer=new Button(CreateTestActivity.this);
+                questionzone.setHint("Insert Question Here");
+                add_answer.setText("Add Answer");
+                multipleans_switch.setText("Multiple Correct Answer Question?");
+
+                add_answer.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        EditText answerzone = new EditText(CreateTestActivity.this);
+                        answerzone.setHint("Insert Answer Here!");
+                        Switch isCorrect=new Switch(CreateTestActivity.this);
+                        isCorrect.setText("Correct Answer!");
+                        linearLayout.addView(isCorrect);
+                        linearLayout.addView(answerzone);
+                    }
+
+                });
+                linearLayout.addView(multipleans_switch);
                 linearLayout.addView(questionzone);
+                linearLayout.addView(add_answer);
             }
         });
     }
