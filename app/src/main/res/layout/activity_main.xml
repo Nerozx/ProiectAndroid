@@ -49,5 +49,5 @@
         android:layout_alignRight="@+id/login_button"
         android:layout_alignEnd="@+id/login_button"
         android:layout_marginTop="13dp"
-        android:id="@+id/button2" />
+        android:id="@+id/insert_button" />
 </RelativeLayout>

@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         loginUtility = new LoginUtility(this);
         loginUtility = loginUtility.openDB();
 
-        insert_button=(Button)findViewById(R.id.button2);
+        insert_button=(Button)findViewById(R.id.insert_button);
 
         login_button=(Button)findViewById(R.id.login_button);
         username_field=(EditText)findViewById(R.id.username_field);
