@@ -26,7 +26,7 @@ public class QuestionUtility
     public static final String QUESTION_SCORE = "Punctaj";
     public static final String CREATE_TABLE_QUESTION =
             " create table " + QUESTION_TABLE + "(" + QUESTION_ID
-            + "integer primary key autoincrement, " + QUESTION_TEXT +
+            + "integer primary key , " + QUESTION_TEXT +
                     " text, " + QUESTION_NOANS + " integer, " +
                     QUESTION_IDANS + " integer, " + QUESTION_SCORE + " integer);";
 

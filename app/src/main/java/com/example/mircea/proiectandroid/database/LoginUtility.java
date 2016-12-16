@@ -21,14 +21,15 @@ public class LoginUtility {
     public static final String USER_NAME = "Nume";
     public static final String USER_EMAIL = "Email";
     public static final String USER_PASSWORD = "Parola";
-    public static final String USER_TYPE = "Tip Cont";
-    public static final String CREATE_TABLE_USER =
+    public static final String USER_TYPE = "Tip_Cont";
+    public static final String CREATE_TABLE_USERS =
             " create table " + USER_TABLE + "(" + USER_ID
-                    + "integer primary key autoincrement, " + USER_NAME +
+                    + "integer primary key, " + USER_NAME +
                     " text, " + USER_EMAIL + " text, " +
                     USER_PASSWORD + " text, " + USER_TYPE + " integer);";
 
-    private LoginUtility.DBUtility dbUtility;
+
+    private DBUtility dbUtility;
     private SQLiteDatabase sqLiteDatabase;
     private Context context;
 
@@ -38,9 +39,13 @@ public class LoginUtility {
         dbUtility = new DBUtility(context);
     }
 
-    public void openDB()
+
+
+    public LoginUtility openDB()
     {
         sqLiteDatabase=dbUtility.getWritableDatabase();
+
+        return this;
     }
 
     public void closeDB()
@@ -48,48 +53,69 @@ public class LoginUtility {
         sqLiteDatabase.close();
     }
 
-    public void insertUser(Users[] users)
-    {
+    public void insertUsers(Users[] users) {
         for(int i=0;i<users.length;i++)
         {
             ContentValues cv = new ContentValues();
             cv.put(USER_NAME,users[i].getUser_name());
             cv.put(USER_EMAIL,users[i].getUser_email());
             cv.put(USER_PASSWORD,users[i].getUser_password());
+            cv.put(USER_TYPE,users[i].getUser_type());
             long id = sqLiteDatabase.insert(USER_TABLE,null,cv);
 
             if(id != -1)
-                Toast.makeText(context, "ID of inserted row : " + id,
+                Toast.makeText(context,"ID of inserted row: " + id,
                         Toast.LENGTH_SHORT).show();
         }
     }
 
-    public Cursor getQuestions()
+    public String getUser(String userName)
     {
-        Cursor cursor = sqLiteDatabase.query(USER_TABLE,null,null,null,null,null,null);
-
-        return cursor;
+        Cursor cursor = sqLiteDatabase.query("USERS",null,"Nume=?",new String[]{userName},null, null, null );
+        if(cursor.getCount()<1)
+        {
+            cursor.close();
+            return "NOT EXIST";
+        }
+        cursor.moveToFirst();
+        String password = cursor.getString(cursor.getColumnIndex(USER_PASSWORD));
+        cursor.close();
+        return password;
     }
 
+    public String getUserType(String userName){
+        Cursor cursor = sqLiteDatabase.query("USERS",null,"Nume=?",new String[]{userName},null, null, null );
+        if(cursor.getCount()<1)
+        {
+            cursor.close();
+            return "NOT EXIST";
+        }
+        cursor.moveToFirst();
+        String user_type = cursor.getString(cursor.getColumnIndex(USER_TYPE));
+        cursor.close();
+        return user_type;
+    }
 
 
 
     class DBUtility extends SQLiteOpenHelper
     {
+
         public DBUtility(Context context)
         {
-            super(context,DB_NAME,null,DB_VERSION);
+            super(context, DB_NAME, null, DB_VERSION);
         }
 
         @Override
         public void onCreate(SQLiteDatabase db)
         {
-            db.execSQL(CREATE_TABLE_USER);
+            db.execSQL(CREATE_TABLE_USERS);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVers, int newVers)
         {
+
 
         }
     }
