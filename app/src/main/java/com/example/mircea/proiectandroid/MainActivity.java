@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
                 //de aici poti sa iei textul inserat in pagina de login pentru baza de date
                 Log.i("Username",username_field.getText().toString());
                 Log.i("Password",password_field.getText().toString());
+
                 if(username_field.getText().toString().equals("p")){
                     Intent new_activity=new Intent(MainActivity.this,ProfessorActivity.class);
                     MainActivity.this.startActivity(new_activity);
