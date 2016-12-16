@@ -13,7 +13,8 @@ import com.example.mircea.proiectandroid.model.TestQuestion;
  * Created by palti13 on 12/15/2016.
  */
 
-public class QuestionUtility {
+public class QuestionUtility
+{
 
     public static final int DB_VERSION = 1;
     public static final String DB_NAME ="testeGrila.db";
@@ -33,20 +34,24 @@ public class QuestionUtility {
     private SQLiteDatabase sqLiteDatabase;
     private Context context;
 
-    public QuestionUtility(Context context){
+    public QuestionUtility(Context context)
+    {
         this.context = context;
         dbUtility = new DBUtility(context);
     }
 
-    public void openDB() {
+    public void openDB()
+    {
         sqLiteDatabase=dbUtility.getWritableDatabase();
     }
 
-    public void closeDB() {
+    public void closeDB()
+    {
         sqLiteDatabase.close();
     }
 
-    public void insertQuestion(TestQuestion[] questions){
+    public void insertQuestion(TestQuestion[] questions)
+    {
         for(int i=0;i<questions.length;i++)
         {
             ContentValues cv = new ContentValues();
@@ -61,7 +66,8 @@ public class QuestionUtility {
         }
     }
 
-    public Cursor getMovies(){
+    public Cursor getQuestions()
+    {
         Cursor cursor = sqLiteDatabase.query(QUESTION_TABLE,null,null,null,null,null,null);
 
         return cursor;
@@ -78,12 +84,14 @@ class DBUtility extends SQLiteOpenHelper
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(SQLiteDatabase db)
+    {
         db.execSQL(CREATE_TABLE_QUESTION);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVers, int newVers) {
+    public void onUpgrade(SQLiteDatabase db, int oldVers, int newVers)
+    {
 
     }
 }
