@@ -15,7 +15,7 @@ import java.sql.SQLException;
  * Created by palti13 on 1/13/2017.
  */
 
-public class DataBaseHelper extends SQLiteOpenHelper{
+public class DatabaseHelper extends SQLiteOpenHelper{
 
     //The Android's default system path of your application database.
     private static String DB_PATH = "/data/data/com.example.mircea.proiectandroid/databases/";
@@ -31,7 +31,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
      * Takes and keeps a reference of the passed context in order to access to the application assets and resources.
      * @param context
      */
-    public DataBaseHelper(Context context) {
+    public DatabaseHelper(Context context) {
 
         super(context, DB_NAME, null, 1);
         this.myContext = context;
