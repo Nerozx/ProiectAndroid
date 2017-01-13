@@ -20,6 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     //The Android's default system path of your application database.
     private static String DB_PATH = "/data/data/com.example.mircea.proiectandroid/databases/";
 
+
     private static String DB_NAME = "testeGrila.db";
 
     private SQLiteDatabase myDataBase;
