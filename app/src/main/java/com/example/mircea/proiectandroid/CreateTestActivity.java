@@ -1,5 +1,6 @@
 package com.example.mircea.proiectandroid;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -75,6 +76,9 @@ public class CreateTestActivity extends AppCompatActivity {
             public void onClick(View view) {
                 getData();
                 if(lst_err==null){
+                    Intent new_activity=new Intent(CreateTestActivity.this,TestSuccessActivity.class);
+                    CreateTestActivity.this.startActivity(new_activity);
+                }else{
 
                 }
             }
