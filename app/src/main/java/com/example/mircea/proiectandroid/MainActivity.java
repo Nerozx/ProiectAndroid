@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent new_activity=new Intent(MainActivity.this,ProfessorActivity.class);
                         MainActivity.this.startActivity(new_activity);
                     }else if(Integer.valueOf(user_type)==1){
+                        Users loggedUser = new Users();
                         Intent new_activity=new Intent(MainActivity.this,StudentActivity.class);
                         MainActivity.this.startActivity(new_activity);
                     }
