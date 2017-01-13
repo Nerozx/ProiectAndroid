@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(password.equals(storedPassword))
                 {
-                    Toast.makeText(MainActivity.this, "Login Successfull",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Login Successful",Toast.LENGTH_LONG).show();
                     String user_type=loginUtility.getUserType(userName);
                     if(Integer.valueOf(user_type)==0){
                         Intent new_activity=new Intent(MainActivity.this,ProfessorActivity.class);

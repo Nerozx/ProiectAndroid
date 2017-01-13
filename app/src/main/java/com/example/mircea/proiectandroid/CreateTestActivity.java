@@ -29,6 +29,7 @@ public class CreateTestActivity extends AppCompatActivity {
     private ChoiceTest choiceTest;
     private TestQuestion testQuestion;
     private TestAnswer testAnswer;
+    private List<String> lst_err=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,15 +74,22 @@ public class CreateTestActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getData();
+                if(lst_err==null){
+
+                }
             }
         });
     }
 
     private void getData(){
         choiceTest=new ChoiceTest();
+        List<TestAnswer> lst_answers=new ArrayList<>();
+        List<TestQuestion> lst_question=new ArrayList<>();
 
 
-        List<String> lst_err=new ArrayList<>();
+        int question_no=0;
+        int answer_no=0;
+
         if(!subject_box.getText().toString().equals("")){
             choiceTest.setTest_subject(subject_box.getText().toString());
             Log.i("TEST_SUBJECT",choiceTest.getTest_subject());
@@ -101,24 +109,84 @@ public class CreateTestActivity extends AppCompatActivity {
             if(v instanceof EditText){
                 EditText e=(EditText) v;
                 if(e.getHint().equals("Insert Question Here")){
-                    if(e.getText().length()!=0){
-                        testQuestion=new TestQuestion();
+                    if(e.getText().length()!=0) {
+                        question_no++;
                         testQuestion.setQuestion_text(e.getText().toString());
-                        Log.i("QUESTION",testQuestion.getQuestion_text());
+                        Log.i("QUESTION", testQuestion.getQuestion_text());
                     }else{
-                        String question_err="You have question(s) left blank";
+                        question_no++;
+                        String question_err="You have question number "+question_no+ "left blank";
                         lst_err.add(question_err);
                     }
                 }else if(e.getHint().equals("Insert Answer Here!")){
-                    testAnswer=new TestAnswer();
+                    answer_no++;
                     testAnswer.setAnswer_text(e.getText().toString());
+                    lst_answers.add(testAnswer);
                     Log.i("ANSWER",testAnswer.getAnswer_text());
                 }else{
-                    String answer_err="You have answer(s) left blank";
+                    answer_no++;
+                    String answer_err="You have answer number"+answer_no + "left blank from question"+question_no;
                     lst_err.add(answer_err);
+                }
+            }else if(v instanceof Switch){
+                Switch f=(Switch) v;
+                if(f.getText().equals("Multiple Correct Answer Question?") && question_no==0){
+                   testQuestion=new TestQuestion();
+                    testQuestion.setQuestion_no_ans(f.isChecked() ? 1:0);
+                }else if(f.getText().equals("Multiple Correct Answer Question?") && question_no>=1){
+                    testQuestion.setQuestion_answer_list(lst_answers);
+                    lst_question.add(testQuestion);
+                    testQuestion=new TestQuestion();
+                    lst_answers=new ArrayList<>();
+                    answer_no=0;
+
+                    testQuestion.setQuestion_no_ans(f.isChecked() ? 1:0);
+
+                }
+                if(f.getText().equals("Correct Answer!")){
+                    testAnswer=new TestAnswer();
+                    testAnswer.setAnswer_right(f.isChecked() ? 1:0);
+                }
+
+            }
+        }
+        checkTest(lst_err,lst_question);
+        choiceTest.setTest_question_lst(lst_question);
+        choiceTest.setTest_question_no(question_no);
+
+    }
+
+
+private void checkTest(List<String> lst_err, List<TestQuestion> lst_question) {
+    if (lst_question != null) {
+        for (TestQuestion question : lst_question) {
+            if (question.getQuestion_no_ans() == 1) {
+                int no_correct = 0;
+                for (TestAnswer answer : question.getQuestion_answer_list()) {
+                    if (answer.isAnswer_right() == 1) {
+                        no_correct++;
+                    }
+                }
+                if (no_correct == 0) {
+                    String err = "You have questions with no answers!";
+                    lst_err.add(err);
+                } else if (no_correct == 1) {
+                    String err = "Please mark 2 or more answers as correct at multiple answer question!";
+                    lst_err.add(err);
+                }
+            }else{
+                int no_correct=0;
+                for (TestAnswer answer : question.getQuestion_answer_list()) {
+                    if (answer.isAnswer_right() == 1) {
+                        no_correct++;
+                    }
+                }
+                if(no_correct==0){
+                    String err="You have single answer questions with no answers";
+                    lst_err.add(err);
                 }
             }
         }
-
     }
+}
 }
