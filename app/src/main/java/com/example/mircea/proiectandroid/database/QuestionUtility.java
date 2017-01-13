@@ -59,10 +59,6 @@ public class QuestionUtility
             cv.put(QUESTION_NOANS,questions[i].getQuestion_no_ans());
             cv.put(QUESTION_SCORE,questions[i].getQuestion_points());
             long id = sqLiteDatabase.insert(QUESTION_TABLE,null,cv);
-
-            if(id != -1)
-                Toast.makeText(context, "ID of inserted row : " + id,
-                        Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -76,7 +72,7 @@ public class QuestionUtility
 
 
 
-class DBUtility extends SQLiteOpenHelper
+public class DBUtility extends SQLiteOpenHelper
 {
     public DBUtility(Context context)
     {
