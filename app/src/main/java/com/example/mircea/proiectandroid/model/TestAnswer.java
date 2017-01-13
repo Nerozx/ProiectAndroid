@@ -7,7 +7,7 @@ package com.example.mircea.proiectandroid.model;
 public class TestAnswer {
     private String answer_text;
     private int answer_id;
-    private boolean answer_right;
+    private int answer_right;
 
     public String getAnswer_text() {
         return answer_text;
@@ -25,11 +25,11 @@ public class TestAnswer {
         this.answer_id = answer_id;
     }
 
-    public boolean isAnswer_right() {
+    public int isAnswer_right() {
         return answer_right;
     }
 
-    public void setAnswer_right(boolean answer_right) {
+    public void setAnswer_right(int answer_right) {
         this.answer_right = answer_right;
     }
 }
