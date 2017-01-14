@@ -36,6 +36,8 @@ public class ProfessorActivity extends AppCompatActivity {
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 Intent new_activity=new Intent(ProfessorActivity.this,SearchStudActivity.class);
                 ProfessorActivity.this.startActivity(new_activity);
             }
