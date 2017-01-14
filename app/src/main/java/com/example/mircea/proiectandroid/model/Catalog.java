@@ -7,8 +7,9 @@ package com.example.mircea.proiectandroid.model;
 public class Catalog {
     private int user_id;
     private int test_id;
-    private int materie_id;
-    private int punctaj;
+    private String materie;
+    private float punctaj;
+    private int credite;
 
     public int getUser_id() {
         return user_id;
@@ -26,19 +27,27 @@ public class Catalog {
         this.test_id = test_id;
     }
 
-    public int getMaterie_id() {
-        return materie_id;
-    }
-
-    public void setMaterie_id(int materie_id) {
-        this.materie_id = materie_id;
-    }
-
-    public int getPunctaj() {
+    public float getPunctaj() {
         return punctaj;
     }
 
-    public void setPunctaj(int punctaj) {
+    public void setPunctaj(float punctaj) {
         this.punctaj = punctaj;
+    }
+
+    public String getMaterie() {
+        return materie;
+    }
+
+    public void setMaterie(String materie) {
+        this.materie = materie;
+    }
+
+    public int getCredite() {
+        return credite;
+    }
+
+    public void setCredite(int credite) {
+        this.credite = credite;
     }
 }

@@ -24,11 +24,7 @@ public class QuestionUtility
     public static final String QUESTION_NOANS = "NrRasp";
     public static final String QUESTION_IDANS = "IDRasp";
     public static final String QUESTION_SCORE = "Punctaj";
-    public static final String CREATE_TABLE_QUESTION =
-            " create table " + QUESTION_TABLE + "(" + QUESTION_ID
-            + "integer primary key , " + QUESTION_TEXT +
-                    " text, " + QUESTION_NOANS + " integer, " +
-                    QUESTION_IDANS + " integer, " + QUESTION_SCORE + " integer);";
+
 
     private DBUtility dbUtility;
     private SQLiteDatabase sqLiteDatabase;
@@ -82,7 +78,7 @@ public class DBUtility extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        db.execSQL(CREATE_TABLE_QUESTION);
+
     }
 
     @Override

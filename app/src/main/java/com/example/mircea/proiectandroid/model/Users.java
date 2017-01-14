@@ -1,10 +1,12 @@
 package com.example.mircea.proiectandroid.model;
 
+import java.io.Serializable;
+
 /**
  * Created by palti13 on 12/16/2016.
  */
 
-public class Users {
+public class Users implements Serializable {
     private int user_id;
     private String user_name;
     private String user_password;
