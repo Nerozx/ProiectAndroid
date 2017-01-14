@@ -9,8 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.mircea.proiectandroid.database.DatabaseHelper;
 import com.example.mircea.proiectandroid.database.LoginUtility;
 import com.example.mircea.proiectandroid.model.Users;
+
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class MainActivity extends AppCompatActivity {
     private Button insert_button;
@@ -23,6 +27,33 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DatabaseHelper myDbHelper = new DatabaseHelper(this);
+        myDbHelper = new DatabaseHelper(this);
+
+        try {
+
+            myDbHelper.createDataBase();
+
+        } catch (IOException ioe) {
+
+            throw new Error("Unable to create database");
+
+        }
+
+        try {
+
+            myDbHelper.openDataBase();
+
+        }catch(SQLException sqle){
+
+            try {
+                throw sqle;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
 
         loginUtility = new LoginUtility(this);
         loginUtility = loginUtility.openDB();
