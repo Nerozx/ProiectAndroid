@@ -8,6 +8,6 @@ public class TestSuccessActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    //    setContentView(R.layout.activity_test_success);
+        setContentView(R.layout.activity_test_success);
     }
 }

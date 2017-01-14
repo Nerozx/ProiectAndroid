@@ -57,9 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         loginUtility = new LoginUtility(this);
         loginUtility = loginUtility.openDB();
-
         insert_button=(Button)findViewById(R.id.insert_button);
-
         login_button=(Button)findViewById(R.id.login_button);
         username_field=(EditText)findViewById(R.id.username_field);
         password_field=(EditText)findViewById(R.id.password_field);
@@ -82,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 if(password.equals(storedPassword))
                 {
                     Toast.makeText(MainActivity.this, "Login Successful",Toast.LENGTH_LONG).show();
-                    String user_type=loginUtility.getUserType(userName);
+                    String user_type=loginUtility.getUser(userName);
                     if(Integer.valueOf(user_type)==0){
                         Intent new_activity=new Intent(MainActivity.this,ProfessorActivity.class);
                         MainActivity.this.startActivity(new_activity);

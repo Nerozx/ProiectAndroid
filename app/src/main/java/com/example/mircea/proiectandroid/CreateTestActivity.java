@@ -245,4 +245,10 @@ private void checkTest(List<String> lst_err, List<TestQuestion> lst_question) {
         }
     }
 }
+
+
+    private void writeDB(ChoiceTest choiceTest){
+
+    }
+
 }

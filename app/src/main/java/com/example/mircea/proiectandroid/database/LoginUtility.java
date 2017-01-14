@@ -83,21 +83,6 @@ public class LoginUtility {
         return password;
     }
 
-    public String getUserType(String userName){
-        Cursor cursor = sqLiteDatabase.query("USERS",null,"Nume=?",new String[]{userName},null, null, null );
-        if(cursor.getCount()<1)
-        {
-            cursor.close();
-            return "NOT EXIST";
-        }
-        cursor.moveToFirst();
-        String user_type = cursor.getString(cursor.getColumnIndex(USER_TYPE));
-        cursor.close();
-        return user_type;
-    }
-
-
-
     class DBUtility extends SQLiteOpenHelper
     {
 
