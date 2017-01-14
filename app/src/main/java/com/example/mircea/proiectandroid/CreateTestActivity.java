@@ -19,7 +19,9 @@ import com.example.mircea.proiectandroid.model.ChoiceTest;
 import com.example.mircea.proiectandroid.model.TestAnswer;
 import com.example.mircea.proiectandroid.model.TestQuestion;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
 
 public class CreateTestActivity extends AppCompatActivity {
@@ -165,6 +167,7 @@ public class CreateTestActivity extends AppCompatActivity {
                    testQuestion=new TestQuestion();
                     testQuestion.setQuestion_no_ans(f.isChecked() ? 1:0);
                 }else if(f.getText().equals("Multiple Correct Answer Question?") && question_no>=1){
+                    Log.i("answer_lenght",String.valueOf(lst_answers.size()));
                     testQuestion.setQuestion_answer_list(lst_answers);
                     testQuestion=new TestQuestion();
                     lst_answers=new ArrayList<>();
@@ -180,12 +183,13 @@ public class CreateTestActivity extends AppCompatActivity {
 
             }
         }
-        if(question_no==1){
+
             testQuestion.setQuestion_answer_list(lst_answers);
-        }
+
         checkTest(lst_err,lst_question);
         choiceTest.setTest_question_lst(lst_question);
         choiceTest.setTest_question_no(question_no);
+        calculateScore();
 
     }
 
@@ -243,8 +247,25 @@ private void checkTest(List<String> lst_err, List<TestQuestion> lst_question) {
                 }
             }
         }
+    }else{
+        String err="Please add at lease one question to your test!";
+        lst_err.add(err);
     }
 }
+
+    private void calculateScore(){
+        int total_points=90;
+        float question_points=0;
+        float temp=0;
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        int question_no=choiceTest.getTest_question_no();
+        List<TestQuestion> lst_question=choiceTest.getTest_question_lst();
+        question_points=total_points/question_no;
+        temp=Float.valueOf(df.format(question_points));
+        question_points=temp;
+        Log.i("Question Points",String.valueOf(question_points));
+    }
 
 
     private void writeDB(ChoiceTest choiceTest){
