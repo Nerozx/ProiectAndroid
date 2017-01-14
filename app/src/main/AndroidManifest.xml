@@ -18,7 +18,9 @@
         <activity android:name=".ProfessorActivity" />
         <activity android:name=".StudentActivity" />
         <activity android:name=".CreateTestActivity" />
-        <activity android:name=".TestSuccessActivity"></activity>
+        <activity android:name=".TestSuccessActivity" />
+        <activity android:name=".CatalogActivity" />
+        <activity android:name=".SearchStudActivity"/>
     </application>
 
 </manifest>

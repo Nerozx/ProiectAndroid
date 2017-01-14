@@ -75,12 +75,12 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("Password",password_field.getText().toString());
                 String userName = username_field.getText().toString();
                 String password = password_field.getText().toString();
-                String storedPassword = loginUtility.getUser(userName);
+                String storedPassword = loginUtility.getUser(userName,loginUtility.USER_PASSWORD);
 
                 if(password.equals(storedPassword))
                 {
                     Toast.makeText(MainActivity.this, "Login Successful",Toast.LENGTH_LONG).show();
-                    String user_type=loginUtility.getUser(userName);
+                    String user_type=loginUtility.getUser(userName,loginUtility.USER_TYPE);
                     if(Integer.valueOf(user_type)==0){
                         Intent new_activity=new Intent(MainActivity.this,ProfessorActivity.class);
                         MainActivity.this.startActivity(new_activity);
@@ -94,13 +94,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"Username or Password wrong",Toast.LENGTH_LONG).show();
                 }
 
-//                if(username_field.getText().toString().equals("p")){
-//                    Intent new_activity=new Intent(MainActivity.this,ProfessorActivity.class);
-//                    MainActivity.this.startActivity(new_activity);
-//                }else if(username_field.getText().toString().equals("s")){
-//                    Intent new_activity=new Intent(MainActivity.this,StudentActivity.class);
-//                    MainActivity.this.startActivity(new_activity);
-//                }
             }
         });
     }

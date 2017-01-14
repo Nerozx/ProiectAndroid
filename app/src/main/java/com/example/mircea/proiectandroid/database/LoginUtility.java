@@ -69,7 +69,7 @@ public class LoginUtility {
         }
     }
 
-    public String getUser(String userName)
+    public String getUser(String userName, String column)
     {
         Cursor cursor = sqLiteDatabase.query("USERS",null,"Nume=?",new String[]{userName},null, null, null );
         if(cursor.getCount()<1)
@@ -78,10 +78,14 @@ public class LoginUtility {
             return "NOT EXIST";
         }
         cursor.moveToFirst();
-        String password = cursor.getString(cursor.getColumnIndex(USER_PASSWORD));
+        String password = cursor.getString(cursor.getColumnIndex(column));
         cursor.close();
         return password;
     }
+
+
+
+
 
     class DBUtility extends SQLiteOpenHelper
     {
