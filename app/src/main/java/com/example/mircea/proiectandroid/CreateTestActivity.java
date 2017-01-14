@@ -15,6 +15,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 
+import com.example.mircea.proiectandroid.database.AnswerUtility;
+import com.example.mircea.proiectandroid.database.QuestionUtility;
+import com.example.mircea.proiectandroid.database.TestUtility;
 import com.example.mircea.proiectandroid.model.ChoiceTest;
 import com.example.mircea.proiectandroid.model.TestAnswer;
 import com.example.mircea.proiectandroid.model.TestQuestion;
@@ -194,7 +197,7 @@ public class CreateTestActivity extends AppCompatActivity {
     }
 
 
-private void checkTest(List<String> lst_err, List<TestQuestion> lst_question) {
+    private void checkTest(List<String> lst_err, List<TestQuestion> lst_question) {
     if (!lst_question.isEmpty()) {
         for (TestQuestion question : lst_question) {
             if (question.getQuestion_no_ans() == 1) {
@@ -269,6 +272,10 @@ private void checkTest(List<String> lst_err, List<TestQuestion> lst_question) {
 
 
     private void writeDB(ChoiceTest choiceTest){
+        TestUtility testUtility=new TestUtility(CreateTestActivity.this);
+        QuestionUtility questionUtility=new QuestionUtility(CreateTestActivity.this);
+        AnswerUtility answerUtility=new AnswerUtility(CreateTestActivity.this);
+
 
     }
 
