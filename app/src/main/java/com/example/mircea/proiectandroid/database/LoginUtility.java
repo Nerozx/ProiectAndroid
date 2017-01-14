@@ -8,11 +8,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 import com.example.mircea.proiectandroid.model.Users;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by palti13 on 12/16/2016.
  */
 
 public class LoginUtility {
+
+    private List<Users> lst_stud = new ArrayList<>();
 
     public static final int DB_VERSION = 1;
     public static final String DB_NAME ="testeGrila.db";
@@ -83,9 +88,23 @@ public class LoginUtility {
         return password;
     }
 
-
-
-
+    public List<Users> getStudents(String userType){
+        Cursor cursor = sqLiteDatabase.query("USERS",null,"Tip_Cont=?",new String[]{userType},null, null, null );
+        if (cursor.getCount()<1)
+        {
+            cursor.close();
+            return null;
+        }
+        if(cursor.moveToFirst()){
+            do{
+                Users user = new Users();
+                user.setUser_name(cursor.getString(cursor.getColumnIndex("Nume")));
+                user.setUser_id(cursor.getInt(cursor.getColumnIndex("_id")));
+                lst_stud.add(user);
+            }while(cursor.moveToNext());
+        }
+                return lst_stud;
+    }
 
     class DBUtility extends SQLiteOpenHelper
     {
