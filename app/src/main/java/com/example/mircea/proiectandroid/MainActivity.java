@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-     //   this.deleteDatabase("testeGrila.db");
+       this.deleteDatabase("testeGrila.db");
         DatabaseHelper myDbHelper = new DatabaseHelper(this);
-        myDbHelper = new DatabaseHelper(this);
+
 
         try {
 
@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     Toast.makeText(MainActivity.this, "Login Successful",Toast.LENGTH_LONG).show();
                     String user_type=loginUtility.getUser(userName,loginUtility.USER_TYPE);
+                    loginUtility.closeDB();
                     if(Integer.valueOf(user_type)==0){
                         Intent new_activity=new Intent(MainActivity.this,ProfessorActivity.class);
                         MainActivity.this.startActivity(new_activity);

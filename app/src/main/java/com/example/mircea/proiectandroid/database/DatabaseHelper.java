@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -47,6 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         if(dbExist){
             //do nothing - database already exist
+            Log.i("DBEXISTS","GOT HERE");
         }else{
 
             //By calling this method and empty database will be created into the default system path
@@ -105,7 +107,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         // Path to the just created empty db
         String outFileName = DB_PATH + DB_NAME;
-
+        Log.i("PATH",outFileName);
         //Open the empty db as the output stream
         OutputStream myOutput = new FileOutputStream(outFileName);
 
@@ -127,6 +129,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         //Open the database
         String myPath = DB_PATH + DB_NAME;
+        Log.i("PATH",myPath);
         myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
 
     }
