@@ -20,9 +20,6 @@ public class AnswerUtility {
     public static final String ANSWER_ID = "_id";
     public static final String ANSWER_TEXT = "TextRaspuns";
     public static final String ANSWER_CORRECT = "Corect";
-    public static final String CREATE_TABLE_ANSWER =
-            " create table " + ANSWER_TABLE + "(" + ANSWER_ID + " integer primary key , " +
-                    ANSWER_TEXT + " text , " + ANSWER_CORRECT + " integer);";
 
     private AnswerUtility.DBUtility dbUtility;
     private SQLiteDatabase sqLiteDatabase;
@@ -62,11 +59,6 @@ public class AnswerUtility {
         return cursor;
     }
 
-
-
-
-
-
     public class DBUtility extends SQLiteOpenHelper
     {
         public DBUtility(Context context)
@@ -77,7 +69,7 @@ public class AnswerUtility {
         @Override
         public void onCreate(SQLiteDatabase db)
         {
-            db.execSQL(CREATE_TABLE_ANSWER);
+
         }
 
         @Override
@@ -86,5 +78,4 @@ public class AnswerUtility {
 
         }
     }
-
 }
