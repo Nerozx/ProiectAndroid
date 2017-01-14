@@ -17,7 +17,7 @@ public class LoginUtility {
     public static final int DB_VERSION = 1;
     public static final String DB_NAME ="testeGrila.db";
     public static final String USER_TABLE="USERS";
-    public static final String USER_ID = "ID";
+    public static final String USER_ID = "_id";
     public static final String USER_NAME = "Nume";
     public static final String USER_EMAIL = "Email";
     public static final String USER_PASSWORD = "Parola";

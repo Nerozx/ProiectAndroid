@@ -1,5 +1,6 @@
 package com.example.mircea.proiectandroid;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+     //   this.deleteDatabase("testeGrila.db");
         DatabaseHelper myDbHelper = new DatabaseHelper(this);
         myDbHelper = new DatabaseHelper(this);
 
@@ -98,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void insertRecords() {
-        Users u1 = new Users(1,"aaa","123","asdf",1);
+      //  Users u1 = new Users(1,"aaa","123","asdf",1);
         Users u2 = new Users(2,"bbb", "456", "asdf", 0);
-        loginUtility.insertUsers(new Users[]{u1,u2});
+        loginUtility.insertUsers(new Users[]{u2});
     }
 }

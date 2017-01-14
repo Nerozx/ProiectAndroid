@@ -19,7 +19,7 @@ public class QuestionUtility
     public static final int DB_VERSION = 1;
     public static final String DB_NAME ="testeGrila.db";
     public static final String QUESTION_TABLE="INTREBARI";
-    public static final String QUESTION_ID = "ID";
+    public static final String QUESTION_ID = "_id";
     public static final String QUESTION_TEXT = "TextIntrebare";
     public static final String QUESTION_NOANS = "NrRasp";
     public static final String QUESTION_IDANS = "IDRasp";

@@ -17,7 +17,7 @@ public class AnswerUtility {
     public static final int DB_VERSION = 1;
     public static final String DB_NAME ="testeGrila.db";
     public static final String ANSWER_TABLE = "RASPUNSURI";
-    public static final String ANSWER_ID = "ID";
+    public static final String ANSWER_ID = "_id";
     public static final String ANSWER_TEXT = "TextRaspuns";
     public static final String ANSWER_CORRECT = "Corect";
     public static final String CREATE_TABLE_ANSWER =
