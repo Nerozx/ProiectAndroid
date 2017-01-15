@@ -7,11 +7,6 @@ import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.mircea.proiectandroid.model.Catalog;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class CatalogActivity extends AppCompatActivity {
     private ListView listView;
     @Override

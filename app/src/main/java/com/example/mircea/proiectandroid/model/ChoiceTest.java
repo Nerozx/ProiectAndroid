@@ -1,18 +1,28 @@
 package com.example.mircea.proiectandroid.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Mircea on 13/12/2016.
  */
 
-public class ChoiceTest {
+public class ChoiceTest implements Serializable{
     private int test_id;
     private String test_name;
     private String test_subject;
     private int test_question_no;
     private List<TestQuestion> test_question_lst;
     private String test_author;
+    private int subject_id;
+
+    public int getSubject_id() {
+        return subject_id;
+    }
+
+    public void setSubject_id(int subject_id) {
+        this.subject_id = subject_id;
+    }
 
     public int getTest_id() {
         return test_id;

@@ -9,6 +9,9 @@ import android.widget.Toast;
 
 import com.example.mircea.proiectandroid.model.TestQuestion;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by palti13 on 12/15/2016.
  */
@@ -71,6 +74,26 @@ public class QuestionUtility
         String id = cursor.getString(cursor.getColumnIndex(column));
         cursor.close();
         return id;
+    }
+
+    public List<TestQuestion> getQuestion(String test_id){
+        List<TestQuestion> lst_question=new ArrayList<>();
+        Cursor cursor=sqLiteDatabase.query(QUESTION_TABLE,null,ID_Test+"=?",new String[]{test_id},null,null,null);
+        if(cursor.getCount() < 1){
+            cursor.close();
+            return null;
+        }
+        if(cursor.moveToFirst()) {
+            do {
+                TestQuestion testQuestion = new TestQuestion();
+                testQuestion.setQuestion_id(cursor.getInt(cursor.getColumnIndex(QUESTION_ID)));
+                testQuestion.setQuestion_text(cursor.getString(cursor.getColumnIndex(QUESTION_TEXT)));
+                testQuestion.setQuestion_points(cursor.getFloat(cursor.getColumnIndex(QUESTION_SCORE)));
+                testQuestion.setQuestion_multch(cursor.getInt(cursor.getColumnIndex(QUESTION_MULTCH)));
+                lst_question.add(testQuestion);
+            } while (cursor.moveToNext());
+        }
+        return lst_question;
     }
 
 public class DBUtility extends SQLiteOpenHelper
