@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.mircea.proiectandroid.database.AnswerUtility;
 import com.example.mircea.proiectandroid.database.DatabaseHelper;
 import com.example.mircea.proiectandroid.database.QuestionUtility;
+import com.example.mircea.proiectandroid.model.AnsCheck;
 import com.example.mircea.proiectandroid.model.ChoiceTest;
 import com.example.mircea.proiectandroid.model.TestAnswer;
 import com.example.mircea.proiectandroid.model.TestQuestion;
@@ -34,6 +35,8 @@ public class TestActivity extends AppCompatActivity {
     private LinearLayout linearLayout;
     private Button submit_btn;
     private ChoiceTest choiceTest;
+    private List<AnsCheck> ans_user;
+    private List<AnsCheck> ans_correct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,12 @@ public class TestActivity extends AppCompatActivity {
         choiceTest=(ChoiceTest) intent.getSerializableExtra("choicetest");
         linearLayout=(LinearLayout) findViewById(R.id.test_zone);
         submit_btn=(Button)findViewById(R.id.submit_btn);
+
+         ans_correct=new ArrayList<>();
+         ans_user=new ArrayList<>();
+
+
+
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,17 +61,41 @@ public class TestActivity extends AppCompatActivity {
 //                toast.setText(String.valueOf(mark));
 //                toast.show();
 
-                for (TestQuestion question:lst_question) {
-                    List<TestAnswer> lst_ans=question.getQuestion_answer_list();
-                    for (TestAnswer answer:lst_ans) {
-                        Log.i("SHAREDPREFS",loadSavedPreferences(""+answer.getAnswer_id()));
-                    }
-                }
             }
         });
         getTest();
+        ans_correct=createList(choiceTest.getTest_question_lst(),false);
+        ans_user=createList(choiceTest.getTest_question_lst(),true);
         createTest();
 
+    }
+
+    private List<AnsCheck> createList(List<TestQuestion> lst_question, boolean isEmpty){
+        List<AnsCheck> ans=new ArrayList<>();
+        if(!isEmpty){
+            for (TestQuestion question:lst_question) {
+                List<TestAnswer> lst_ans=question.getQuestion_answer_list();
+                for (TestAnswer answer:lst_ans) {
+                    AnsCheck ansch=new AnsCheck();
+                    ansch.setId(answer.getAnswer_id());
+                    ansch.setIsRight(answer.isAnswer_right());
+                    ansch.setQuestion(question.getQuestion_id());
+                    ans.add(ansch);
+                }
+            }
+        }else{
+            for (TestQuestion question:lst_question) {
+                List<TestAnswer> lst_ans=question.getQuestion_answer_list();
+                for (TestAnswer answer:lst_ans) {
+               AnsCheck ansch=new AnsCheck();
+                    ansch.setId(answer.getAnswer_id());
+                    ansch.setIsRight(0);
+                    ansch.setQuestion(question.getQuestion_id());
+                    ans.add(ansch);
+                }
+                }
+        }
+        return ans;
     }
 
     private float getFinalMark(List<TestQuestion> lst_question){
@@ -175,8 +208,21 @@ public class TestActivity extends AppCompatActivity {
                     radio_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                                savePreferences(""+answer.getAnswer_id(),""+compoundButton.isChecked());
+                        if(compoundButton.isChecked()){
+                            Log.i("ANS ID",""+answer.getAnswer_id()+"  "+compoundButton.isChecked());
+                            for (AnsCheck ans:ans_user) {
+                                if(ans.getId()==answer.getAnswer_id()){
+                                    ans.setIsRight(1);
+                                }
+                            }
+                        }else{
+                            Log.i("ANS ID",""+answer.getAnswer_id()+"  "+compoundButton.isChecked());
+                            for (AnsCheck ans:ans_user) {
+                                if(ans.getId()==answer.getAnswer_id()){
+                                    ans.setIsRight(0);
+                                }
+                            }
+                        }
 
                         }
                     });
@@ -184,29 +230,34 @@ public class TestActivity extends AppCompatActivity {
                 }
                 linearLayout.addView(radiogrup);
             }else if (question.getQuestion_multch()==1){
-                for(TestAnswer answer:lst_answer){
+                for(final TestAnswer answer1:lst_answer){
                     CheckBox check=new CheckBox(this);
-                    check.setText(answer.getAnswer_text());
+                    check.setText(answer1.getAnswer_text());
+                    check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                            if(compoundButton.isChecked()){
+                                Log.i("ANS ID",""+answer1.getAnswer_id()+"  "+compoundButton.isChecked());
+                                for (AnsCheck ans:ans_user) {
+                                    if(ans.getId()==answer1.getAnswer_id()){
+                                        ans.setIsRight(1);
+                                    }
+                                }
+                            }else{
+                                Log.i("ANS ID",""+answer1.getAnswer_id()+"  "+compoundButton.isChecked());
+                                for (AnsCheck ans:ans_user) {
+                                    if(ans.getId()==answer1.getAnswer_id()){
+                                        ans.setIsRight(0);
+                                    }
+                                }
+                            }
+                        }
+                    });
                     linearLayout.addView(check);
                 }
             }
         }
     }
 
-    private void savePreferences(String answer_id,String state){
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(TestActivity.this);
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(answer_id, state);
-        editor.apply();
-    }
-
-    private String loadSavedPreferences(String key) {
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(TestActivity.this);
-
-        String name = sharedPreferences.getString(key, "Default");
-        return name;
-    }
 }
