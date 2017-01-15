@@ -33,8 +33,6 @@ import java.util.List;
 
 public class CreateTestActivity extends AppCompatActivity {
 
-    private Button addQuestion_btn;
-    private Button createTest_btn;
     private EditText subject_box;
     private EditText test_name_box;
     private LinearLayout linearLayout;
@@ -51,8 +49,8 @@ public class CreateTestActivity extends AppCompatActivity {
         setTitle("Create test");
         Intent i=getIntent();
         logged_user=(Users)i.getSerializableExtra("logged");
-        addQuestion_btn=(Button) findViewById(R.id.question_adder);
-        createTest_btn=(Button) findViewById(R.id.button_create_test);
+        Button addQuestion_btn = (Button) findViewById(R.id.question_adder);
+        Button createTest_btn = (Button) findViewById(R.id.button_create_test);
         subject_box=(EditText) findViewById(R.id.subject_box);
         test_name_box=(EditText) findViewById(R.id.test_name_box);
         linearLayout=(LinearLayout) findViewById(R.id.question_zone);
@@ -64,19 +62,19 @@ public class CreateTestActivity extends AppCompatActivity {
                 EditText questionzone=new EditText(CreateTestActivity.this);
                 Switch multipleans_switch=new Switch(CreateTestActivity.this);
                 Button add_answer=new Button(CreateTestActivity.this);
-                questionzone.setHint("Insert Question Here");
-                add_answer.setText("Add Answer");
+                questionzone.setHint(R.string.insert_question);
+                add_answer.setText(R.string.add_answer);
 
-                multipleans_switch.setText("Multiple Correct Answer Question?");
+                multipleans_switch.setText(R.string.multiple_correct);
 
                 add_answer.setOnClickListener(new View.OnClickListener() {
 
                     @Override
                     public void onClick(View view) {
                         EditText answerzone = new EditText(CreateTestActivity.this);
-                        answerzone.setHint("Insert Answer Here!");
+                        answerzone.setHint(R.string.insert_answer);
                         Switch isCorrect=new Switch(CreateTestActivity.this);
-                        isCorrect.setText("Correct Answer!");
+                        isCorrect.setText(R.string.correct_answer);
                         int i=linearLayout.indexOfChild(view);
                                     linearLayout.addView(isCorrect,i+1);
                                     linearLayout.addView(answerzone,i+2);
@@ -299,17 +297,17 @@ public class CreateTestActivity extends AppCompatActivity {
         SubjectUtility subjectUtility=new SubjectUtility(CreateTestActivity.this);
         subjectUtility.openDB();
         subjectUtility.writeSubject(choiceTest.getTest_subject());
-        choiceTest.setSubject_id(Integer.valueOf(subjectUtility.getSubjectIdId(subjectUtility.SUBJECT_ID)));
+        choiceTest.setSubject_id(Integer.valueOf(subjectUtility.getSubjectIdId(SubjectUtility.SUBJECT_ID)));
         QuestionUtility questionUtility=new QuestionUtility(CreateTestActivity.this);
         AnswerUtility answerUtility=new AnswerUtility(CreateTestActivity.this);
         testUtility.writeTest(choiceTest);
-        int test_id=Integer.valueOf(testUtility.getTestId(testUtility.TEST_ID));
+        int test_id=Integer.valueOf(testUtility.getTestId(TestUtility.TEST_ID));
 
         for (TestQuestion question:choiceTest.getTest_question_lst()) {
             questionUtility.openDB();
             question.setQuestion_id(test_id);
             questionUtility.insertQuestion(question);
-            int question_id=Integer.valueOf(questionUtility.getQuestionId(questionUtility.QUESTION_ID));
+            int question_id=Integer.valueOf(questionUtility.getQuestionId(QuestionUtility.QUESTION_ID));
             for (TestAnswer answer:question.getQuestion_answer_list()) {
                 answerUtility.openDB();
                 answer.setAnswer_id(question_id);

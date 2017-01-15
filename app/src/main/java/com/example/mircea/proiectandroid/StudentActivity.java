@@ -67,7 +67,7 @@ public class StudentActivity extends AppCompatActivity {
         List<String> lst_string=new ArrayList<>();
         for (Catalog cat:lst_catalog) {
             String s="";
-            s=cat.getMaterie()+" punctaj obtinut: "+cat.getPunctaj();
+            s=cat.getMaterie()+ R.string.pct_obt+cat.getPunctaj();
             lst_string.add(s);
         }
         catalog=new String[lst_string.size()];

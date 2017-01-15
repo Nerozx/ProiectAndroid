@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ProiectAndroid</string>
+    <string name="add_answer">Add Answer</string>
+    <string name="multiple_correct">Multiple Correct Answer Question?</string>
+    <string name="correct_answer">Correct Answer!</string>
+    <string name="insert_answer">Insert Answer Here!</string>
+    <string name="insert_question">Insert Question Here</string>
+    <string name="pct_obt">" punctaj obtinut: "</string>
 </resources>

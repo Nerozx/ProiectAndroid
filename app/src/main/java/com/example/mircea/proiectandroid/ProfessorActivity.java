@@ -16,21 +16,17 @@ import java.util.List;
 
 public class ProfessorActivity extends AppCompatActivity {
 
-    private Button search_btn;
-    private Button create_btn;
-    private TextView greeting;
     private List<Users> lst_stud = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_professor);
-        greeting = (TextView)findViewById(R.id.greeting);
         Intent i = getIntent();
         final Users loggedUser = (Users)i.getSerializableExtra("userLogat");
         setTitle("Hello professor " + loggedUser.getUser_name());
-        search_btn=(Button) findViewById(R.id.button_search);
-        create_btn=(Button) findViewById(R.id.button_create_test);
+        Button search_btn = (Button) findViewById(R.id.button_search);
+        Button create_btn = (Button) findViewById(R.id.button_create_test);
         create_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
