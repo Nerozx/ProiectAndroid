@@ -22,6 +22,7 @@ import com.example.mircea.proiectandroid.database.TestUtility;
 import com.example.mircea.proiectandroid.model.ChoiceTest;
 import com.example.mircea.proiectandroid.model.TestAnswer;
 import com.example.mircea.proiectandroid.model.TestQuestion;
+import com.example.mircea.proiectandroid.model.Users;
 
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -40,11 +41,14 @@ public class CreateTestActivity extends AppCompatActivity {
     private TestQuestion testQuestion;
     private TestAnswer testAnswer;
     private List<String> lst_err=new ArrayList<>();
+    private Users logged_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_test);
+        Intent i=getIntent();
+        logged_user=(Users)i.getSerializableExtra("logged");
         addQuestion_btn=(Button) findViewById(R.id.question_adder);
         createTest_btn=(Button) findViewById(R.id.button_create_test);
         subject_box=(EditText) findViewById(R.id.subject_box);
@@ -195,6 +199,7 @@ public class CreateTestActivity extends AppCompatActivity {
         checkTest(lst_err,lst_question);
         choiceTest.setTest_question_lst(lst_question);
         choiceTest.setTest_question_no(question_no);
+        choiceTest.setTest_author(logged_user.getUser_name());
         calculateScore();
 
     }
@@ -241,6 +246,9 @@ public class CreateTestActivity extends AppCompatActivity {
                     }
                     if (no_correct == 0) {
                         String err = "You have single answer questions with no correct answers";
+                        lst_err.add(err);
+                    }else if(no_correct>1){
+                        String err="You have single answer questions with multiple correct answers. Please tick multiplechoice question if you want multiple answers!";
                         lst_err.add(err);
                     }
                     if(no_answers==1){

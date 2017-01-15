@@ -34,6 +34,7 @@ public class ProfessorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
             Intent new_activity=new Intent(ProfessorActivity.this,CreateTestActivity.class);
+                new_activity.putExtra("logged",loggedUser);
                 ProfessorActivity.this.startActivity(new_activity);
             }
         });
