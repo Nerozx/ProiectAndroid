@@ -16,12 +16,14 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 
 import com.example.mircea.proiectandroid.database.AnswerUtility;
+import com.example.mircea.proiectandroid.database.DatabaseHelper;
 import com.example.mircea.proiectandroid.database.QuestionUtility;
 import com.example.mircea.proiectandroid.database.TestUtility;
 import com.example.mircea.proiectandroid.model.ChoiceTest;
 import com.example.mircea.proiectandroid.model.TestAnswer;
 import com.example.mircea.proiectandroid.model.TestQuestion;
 
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -87,6 +89,7 @@ public class CreateTestActivity extends AppCompatActivity {
             public void onClick(View view) {
                 getData();
                 if(lst_err.isEmpty()){
+                    writeDB(choiceTest);
                     Intent new_activity=new Intent(CreateTestActivity.this,TestSuccessActivity.class);
                     CreateTestActivity.this.startActivity(new_activity);
                 }else{
@@ -263,18 +266,42 @@ public class CreateTestActivity extends AppCompatActivity {
         DecimalFormat df = new DecimalFormat();
         df.setMaximumFractionDigits(2);
         int question_no=choiceTest.getTest_question_no();
-        List<TestQuestion> lst_question=choiceTest.getTest_question_lst();
         question_points=total_points/question_no;
         temp=Float.valueOf(df.format(question_points));
         question_points=temp;
         Log.i("Question Points",String.valueOf(question_points));
+        for (TestQuestion question:choiceTest.getTest_question_lst()) {
+            question.setQuestion_points(question_points);
+        }
     }
 
 
     private void writeDB(ChoiceTest choiceTest){
+        DatabaseHelper myDBHelper=new DatabaseHelper(this);
+        try {
+            myDBHelper.openDataBase();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         TestUtility testUtility=new TestUtility(CreateTestActivity.this);
+        testUtility.openDB();
         QuestionUtility questionUtility=new QuestionUtility(CreateTestActivity.this);
         AnswerUtility answerUtility=new AnswerUtility(CreateTestActivity.this);
+        testUtility.writeTest(choiceTest);
+        int test_id=Integer.valueOf(testUtility.getTestId(testUtility.TEST_ID));
+
+        for (TestQuestion question:choiceTest.getTest_question_lst()) {
+            questionUtility.openDB();
+            question.setQuestion_id(test_id);
+            questionUtility.insertQuestion(question);
+            int question_id=Integer.valueOf(questionUtility.getQuestionId(questionUtility.QUESTION_ID));
+            for (TestAnswer answer:question.getQuestion_answer_list()) {
+                answerUtility.openDB();
+                answer.setAnswer_id(question_id);
+                answerUtility.insertAnswer(answer);
+            }
+
+        }
 
 
     }

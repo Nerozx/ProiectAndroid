@@ -22,8 +22,9 @@ public class QuestionUtility
     public static final String QUESTION_ID = "_id";
     public static final String QUESTION_TEXT = "TextIntrebare";
     public static final String QUESTION_NOANS = "NrRasp";
-    public static final String QUESTION_IDANS = "IDRasp";
+    public static final String QUESTION_MULTCH = "RaspMult";
     public static final String QUESTION_SCORE = "Punctaj";
+    public static final String ID_Test="IDTest";
 
 
     private DBUtility dbUtility;
@@ -46,27 +47,31 @@ public class QuestionUtility
         sqLiteDatabase.close();
     }
 
-    public void insertQuestion(TestQuestion[] questions)
+    public void insertQuestion(TestQuestion questions)
     {
-        for(int i=0;i<questions.length;i++)
-        {
+
             ContentValues cv = new ContentValues();
-            cv.put(QUESTION_TEXT,questions[i].getQuestion_text());
-            cv.put(QUESTION_NOANS,questions[i].getQuestion_no_ans());
-            cv.put(QUESTION_SCORE,questions[i].getQuestion_points());
-            long id = sqLiteDatabase.insert(QUESTION_TABLE,null,cv);
-        }
+            cv.put(QUESTION_TEXT,questions.getQuestion_text());
+            cv.put(QUESTION_SCORE,questions.getQuestion_points());
+            cv.put(QUESTION_MULTCH,questions.getQuestion_multch());
+            cv.put(ID_Test,questions.getQuestion_id());
+            sqLiteDatabase.insert(QUESTION_TABLE,null,cv);
+
     }
 
-    public Cursor getQuestions()
+    public String getQuestionId(String column)
     {
-        Cursor cursor = sqLiteDatabase.query(QUESTION_TABLE,null,null,null,null,null,null);
-
-        return cursor;
+        Cursor cursor = sqLiteDatabase.query(QUESTION_TABLE,null,null,null,null, null, null );
+        if(cursor.getCount()<1)
+        {
+            cursor.close();
+            return "NOT EXIST";
+        }
+        cursor.moveToLast();
+        String id = cursor.getString(cursor.getColumnIndex(column));
+        cursor.close();
+        return id;
     }
-
-
-
 
 public class DBUtility extends SQLiteOpenHelper
 {

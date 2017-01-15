@@ -51,10 +51,18 @@ public class TestUtility {
         sqLiteDatabase.insert(TEST_TABLE,null,cv);
     }
 
-    public Cursor getAnswers()
+    public String getTestId(String column)
     {
-        Cursor cursor = sqLiteDatabase.query(TEST_TABLE,null,null,null,null,null,null);
-        return cursor;
+        Cursor cursor = sqLiteDatabase.query(TEST_TABLE,null,null,null,null, null, null );
+        if(cursor.getCount()<1)
+        {
+            cursor.close();
+            return "NOT EXIST";
+        }
+        cursor.moveToLast();
+        String id = cursor.getString(cursor.getColumnIndex(column));
+        cursor.close();
+        return id;
     }
 
     public class DBUtility extends SQLiteOpenHelper

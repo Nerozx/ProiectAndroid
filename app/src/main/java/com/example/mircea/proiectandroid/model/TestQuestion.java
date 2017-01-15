@@ -11,6 +11,7 @@ public class TestQuestion {
     private String question_text;
     private int question_no_ans;
     private List<TestAnswer> question_answer_list;
+    private int question_multch;
     private float question_points;
 
     public TestQuestion() {
@@ -23,6 +24,14 @@ public class TestQuestion {
         this.question_no_ans = question_no_ans;
         this.question_answer_list = question_answer_list;
         this.question_points = question_points;
+    }
+
+    public int getQuestion_multch() {
+        return question_multch;
+    }
+
+    public void setQuestion_multch(int question_multch) {
+        this.question_multch = question_multch;
     }
 
     public int getQuestion_id() {

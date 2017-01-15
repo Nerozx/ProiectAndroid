@@ -20,6 +20,7 @@ public class AnswerUtility {
     public static final String ANSWER_ID = "_id";
     public static final String ANSWER_TEXT = "TextRaspuns";
     public static final String ANSWER_CORRECT = "Corect";
+    public static final String QUESTION_ID="IDIntrebare";
 
     private AnswerUtility.DBUtility dbUtility;
     private SQLiteDatabase sqLiteDatabase;
@@ -41,15 +42,15 @@ public class AnswerUtility {
         sqLiteDatabase.close();
     }
 
-    public void insertAnswer(TestAnswer[] answers)
+    public void insertAnswer(TestAnswer answers)
     {
-        for(int i=0;i<answers.length;i++)
-        {
+
             ContentValues cv = new ContentValues();
-            cv.put(ANSWER_TEXT,answers[i].getAnswer_text());
-            cv.put(ANSWER_CORRECT,answers[i].isAnswer_right());
-            long id = sqLiteDatabase.insert(ANSWER_TABLE,null,cv);
-        }
+            cv.put(QUESTION_ID,answers.getAnswer_id());
+            cv.put(ANSWER_TEXT,answers.getAnswer_text());
+            cv.put(ANSWER_CORRECT,answers.isAnswer_right());
+            sqLiteDatabase.insert(ANSWER_TABLE,null,cv);
+
     }
 
     public Cursor getAnswers()

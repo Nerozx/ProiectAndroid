@@ -13,6 +13,7 @@ import com.example.mircea.proiectandroid.database.CatalogUtility;
 import com.example.mircea.proiectandroid.model.Catalog;
 import com.example.mircea.proiectandroid.model.Users;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,12 +55,14 @@ public class SearchStudActivity extends AppCompatActivity {
         String[] catalog;
         List<String> lst_string=new ArrayList<>();
         for (Catalog cat:lst_catalog) {
-            String s="";
+            String s;
             s=cat.getMaterie()+" punctaj obtinut: "+cat.getPunctaj();
             lst_string.add(s);
         }
         catalog=new String[lst_string.size()];
         catalog=lst_string.toArray(catalog);
         return catalog;
+
+
     }
 }

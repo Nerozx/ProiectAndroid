@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.deleteDatabase("testeGrila.db");
-        DatabaseHelper myDbHelper = new DatabaseHelper(this);
+        final DatabaseHelper myDbHelper;
         myDbHelper = new DatabaseHelper(this);
 
         try {
@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                         Users loggedUser = new Users();
                         loggedUser.setUser_name(userName);
                         loggedUser.setUser_id(Integer.valueOf(loginUtility.getUser(userName, loginUtility.USER_ID)));
+                        myDbHelper.close();
                         Intent new_activity = new Intent(MainActivity.this, ProfessorActivity.class);
                         new_activity.putExtra("userLogat", loggedUser);
                         MainActivity.this.startActivity(new_activity);
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                         Users loggedUser = new Users();
                         loggedUser.setUser_name(userName);
                         loggedUser.setUser_id(Integer.valueOf(loginUtility.getUser(userName, loginUtility.USER_ID)));
+                        myDbHelper.close();
                         Intent new_activity = new Intent(MainActivity.this, StudentActivity.class);
                         new_activity.putExtra("userLogat", loggedUser);
                         MainActivity.this.startActivity(new_activity);
