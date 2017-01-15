@@ -52,13 +52,13 @@ public class TestUtility {
         cv.put(TEST_NAME,choiceTest.getTest_name());
         cv.put(TEST_AUTHOR,choiceTest.getTest_author());
         cv.put(QUESTION_NO,choiceTest.getTest_question_no());
-        cv.put(MATERIE_ID,choiceTest.getTest_id());
+        cv.put(MATERIE_ID,choiceTest.getSubject_id());
         sqLiteDatabase.insert(TEST_TABLE,null,cv);
     }
 
     public List<ChoiceTest> getTestList(){
         List<ChoiceTest> choiceTests=new ArrayList<>();
-        final String query="select * from TESTE tst INNER JOIN MATERII mat on tst.IDMaterie=mat._id";
+        final String query="select tst.*,mat.Nume from TESTE tst INNER JOIN MATERII mat on tst.IDMaterie=mat._id";
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
         if(cursor.getCount() < 1){
             cursor.close();

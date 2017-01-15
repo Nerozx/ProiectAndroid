@@ -176,7 +176,7 @@ public class CreateTestActivity extends AppCompatActivity {
                 Switch f=(Switch) v;
                 if(f.getText().equals("Multiple Correct Answer Question?") && question_no==0){
                    testQuestion=new TestQuestion();
-                    testQuestion.setQuestion_no_ans(f.isChecked() ? 1:0);
+                    testQuestion.setQuestion_multch(f.isChecked() ? 1:0);
                 }else if(f.getText().equals("Multiple Correct Answer Question?") && question_no>=1){
                     Log.i("answer_lenght",String.valueOf(lst_answers.size()));
                     testQuestion.setQuestion_answer_list(lst_answers);
@@ -184,7 +184,7 @@ public class CreateTestActivity extends AppCompatActivity {
                     lst_answers=new ArrayList<>();
                     answer_no=0;
 
-                    testQuestion.setQuestion_no_ans(f.isChecked() ? 1:0);
+                    testQuestion.setQuestion_multch(f.isChecked() ? 1:0);
 
                 }
                 if(f.getText().equals("Correct Answer!")){
@@ -209,7 +209,7 @@ public class CreateTestActivity extends AppCompatActivity {
     private void checkTest(List<String> lst_err, List<TestQuestion> lst_question) {
     if (!lst_question.isEmpty()) {
         for (TestQuestion question : lst_question) {
-            if (question.getQuestion_no_ans() == 1) {
+            if (question.getQuestion_multch() == 1) {
 
                 if(!question.getQuestion_answer_list().isEmpty()) {
                     int no_correct = 0;
@@ -297,7 +297,7 @@ public class CreateTestActivity extends AppCompatActivity {
         SubjectUtility subjectUtility=new SubjectUtility(CreateTestActivity.this);
         subjectUtility.openDB();
         subjectUtility.writeSubject(choiceTest.getTest_subject());
-        choiceTest.setTest_id(Integer.valueOf(subjectUtility.getSubjectIdId(subjectUtility.SUBJECT_ID)));
+        choiceTest.setSubject_id(Integer.valueOf(subjectUtility.getSubjectIdId(subjectUtility.SUBJECT_ID)));
         QuestionUtility questionUtility=new QuestionUtility(CreateTestActivity.this);
         AnswerUtility answerUtility=new AnswerUtility(CreateTestActivity.this);
         testUtility.writeTest(choiceTest);
