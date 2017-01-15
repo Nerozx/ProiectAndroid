@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("Teste Grila");
 
-        this.deleteDatabase("testeGrila.db");
+        //this.deleteDatabase("testeGrila.db");
         final DatabaseHelper myDbHelper;
         myDbHelper = new DatabaseHelper(this);
 
