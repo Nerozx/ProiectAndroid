@@ -3,6 +3,8 @@ package com.example.mircea.proiectandroid;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -60,10 +62,15 @@ public class TestActivity extends AppCompatActivity {
     private void createTest(){
         List<TestQuestion> lst_question=choiceTest.getTest_question_lst();
         List<TestAnswer> lst_answer;
-
+        TextView title=new TextView(TestActivity.this);
+        title.setText(choiceTest.getTest_subject()+" - "+choiceTest.getTest_name());
+        title.setTextSize(25);
+        title.setGravity(Gravity.CENTER);
+        linearLayout.addView(title);
         for (TestQuestion question:lst_question) {
             lst_answer=question.getQuestion_answer_list();
             TextView question_zone=new TextView(TestActivity.this);
+            question_zone.setTextSize(20);
             question_zone.setText(question.getQuestion_text());
             linearLayout.addView(question_zone);
             if(question.getQuestion_multch()==0){
@@ -72,6 +79,7 @@ public class TestActivity extends AppCompatActivity {
                 for (TestAnswer answer:lst_answer) {
                     RadioButton radio_btn=new RadioButton(this);
                     radio_btn.setText(answer.getAnswer_text());
+                    radio_btn.setTextSize(15);
                     radiogrup.addView(radio_btn);
                 }
                 linearLayout.addView(radiogrup);
