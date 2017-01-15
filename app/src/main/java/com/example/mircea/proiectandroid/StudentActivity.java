@@ -50,6 +50,13 @@ public class StudentActivity extends AppCompatActivity {
                 StudentActivity.this.startActivity(new_activity);
             }
         });
+
+        startTestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     private String[] convertList(List<Catalog> lst_catalog){
