@@ -1,12 +1,16 @@
 package com.example.mircea.proiectandroid;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,6 +27,8 @@ import com.example.mircea.proiectandroid.model.TestQuestion;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.R.attr.key;
 
 public class TestActivity extends AppCompatActivity {
     private LinearLayout linearLayout;
@@ -41,10 +47,17 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
             List<TestQuestion> lst_question=getTestResults();
-            float mark=getFinalMark(lst_question);
-                Toast toast=new Toast(TestActivity.this);
-                toast.setText(String.valueOf(mark));
-                toast.show();
+//            float mark=getFinalMark(lst_question);
+//                Toast toast=new Toast(TestActivity.this);
+//                toast.setText(String.valueOf(mark));
+//                toast.show();
+
+                for (TestQuestion question:lst_question) {
+                    List<TestAnswer> lst_ans=question.getQuestion_answer_list();
+                    for (TestAnswer answer:lst_ans) {
+                        Log.i("SHAREDPREFS",loadSavedPreferences(""+answer.getAnswer_id()));
+                    }
+                }
             }
         });
         getTest();
@@ -97,11 +110,11 @@ public class TestActivity extends AppCompatActivity {
                 TestAnswer testAnswer=new TestAnswer();
                 testAnswer.setAnswer_right(check.isChecked()? 1:0);
                 testAnswers.add(testAnswer);
-            }else if(v instanceof RadioButton){
-                RadioButton radioButton=(RadioButton) v;
-                TestAnswer testAnswer=new TestAnswer();
-                testAnswer.setAnswer_right(radioButton.isChecked()? 1:0);
-                testAnswers.add(testAnswer);
+//            }else if(v instanceof RadioButton){
+//                RadioButton radioButton=(RadioButton) v;
+//                TestAnswer testAnswer=new TestAnswer();
+//                testAnswer.setAnswer_right(radioButton.isChecked()? 1:0);
+//                testAnswers.add(testAnswer);
             }else if(v instanceof TextView){
                 if(!testAnswers.isEmpty()){
                  TestQuestion question=new TestQuestion();
@@ -155,10 +168,18 @@ public class TestActivity extends AppCompatActivity {
             if(question.getQuestion_multch()==0){
                 RadioGroup radiogrup=new RadioGroup(this);
                 radiogrup.setOrientation(RadioGroup.VERTICAL);
-                for (TestAnswer answer:lst_answer) {
-                    RadioButton radio_btn=new RadioButton(this);
+                for (final TestAnswer answer:lst_answer) {
+                    final RadioButton radio_btn=new RadioButton(this);
                     radio_btn.setText(answer.getAnswer_text());
                     radio_btn.setTextSize(15);
+                    radio_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                                savePreferences(""+answer.getAnswer_id(),""+compoundButton.isChecked());
+
+                        }
+                    });
                     radiogrup.addView(radio_btn);
                 }
                 linearLayout.addView(radiogrup);
@@ -170,5 +191,22 @@ public class TestActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    private void savePreferences(String answer_id,String state){
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(TestActivity.this);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(answer_id, state);
+        editor.apply();
+    }
+
+    private String loadSavedPreferences(String key) {
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(TestActivity.this);
+
+        String name = sharedPreferences.getString(key, "Default");
+        return name;
     }
 }
