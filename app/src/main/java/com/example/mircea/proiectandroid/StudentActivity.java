@@ -54,7 +54,9 @@ public class StudentActivity extends AppCompatActivity {
         startTestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent new_activity=new Intent(StudentActivity.this, TestPickerActivity.class);
+                new_activity.putExtra("userLogat",loggedUser);
+                StudentActivity.this.startActivity(new_activity);
             }
         });
     }

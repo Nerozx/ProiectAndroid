@@ -6,8 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.mircea.proiectandroid.model.Catalog;
 import com.example.mircea.proiectandroid.model.ChoiceTest;
 import com.example.mircea.proiectandroid.model.TestAnswer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by palti13 on 1/13/2017.
@@ -52,10 +56,27 @@ public class TestUtility {
         sqLiteDatabase.insert(TEST_TABLE,null,cv);
     }
 
-//    public void writeSubject(String id){
-//        ContentValues cv=new ContentValues();
-//        cv.put(MATERIE_ID,id);
-//    }
+    public List<ChoiceTest> getTestList(){
+        List<ChoiceTest> choiceTests=new ArrayList<>();
+        final String query="select * from TESTE tst INNER JOIN MATERII mat on tst.IDMaterie=mat._id";
+        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+        if(cursor.getCount() < 1){
+            cursor.close();
+            return null;
+        }
+        if(cursor.moveToFirst()){
+            do{
+                ChoiceTest choiceTest=new ChoiceTest();
+                choiceTest.setTest_id(cursor.getInt(cursor.getColumnIndex(TEST_ID)));
+                choiceTest.setTest_name(cursor.getString(cursor.getColumnIndex(TEST_NAME)));
+                choiceTest.setTest_subject(cursor.getString(cursor.getColumnIndex("Nume")));
+                choiceTest.setTest_author(cursor.getString(cursor.getColumnIndex(TEST_AUTHOR)));
+                choiceTests.add(choiceTest);
+
+            }while(cursor.moveToNext());
+        }
+        return choiceTests;
+    }
     public String getTestId(String column)
     {
         Cursor cursor = sqLiteDatabase.query(TEST_TABLE,null,null,null,null, null, null );
