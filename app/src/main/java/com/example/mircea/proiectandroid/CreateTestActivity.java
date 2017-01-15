@@ -18,6 +18,7 @@ import android.widget.Switch;
 import com.example.mircea.proiectandroid.database.AnswerUtility;
 import com.example.mircea.proiectandroid.database.DatabaseHelper;
 import com.example.mircea.proiectandroid.database.QuestionUtility;
+import com.example.mircea.proiectandroid.database.SubjectUtility;
 import com.example.mircea.proiectandroid.database.TestUtility;
 import com.example.mircea.proiectandroid.model.ChoiceTest;
 import com.example.mircea.proiectandroid.model.TestAnswer;
@@ -293,6 +294,10 @@ public class CreateTestActivity extends AppCompatActivity {
         }
         TestUtility testUtility=new TestUtility(CreateTestActivity.this);
         testUtility.openDB();
+        SubjectUtility subjectUtility=new SubjectUtility(CreateTestActivity.this);
+        subjectUtility.openDB();
+        subjectUtility.writeSubject(choiceTest.getTest_subject());
+        choiceTest.setTest_id(Integer.valueOf(subjectUtility.getSubjectIdId(subjectUtility.SUBJECT_ID)));
         QuestionUtility questionUtility=new QuestionUtility(CreateTestActivity.this);
         AnswerUtility answerUtility=new AnswerUtility(CreateTestActivity.this);
         testUtility.writeTest(choiceTest);

@@ -2,6 +2,7 @@ package com.example.mircea.proiectandroid.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -40,6 +41,20 @@ public class SubjectUtility {
         ContentValues cv=new ContentValues();
         cv.put(SUBJECT_NAME,subject);
         sqLiteDatabase.insert(SUBJECT_TABLE,null,cv);
+    }
+
+    public String getSubjectIdId(String column)
+    {
+        Cursor cursor = sqLiteDatabase.query(SUBJECT_TABLE,null,null,null,null, null, null );
+        if(cursor.getCount()<1)
+        {
+            cursor.close();
+            return "NOT EXIST";
+        }
+        cursor.moveToLast();
+        String id = cursor.getString(cursor.getColumnIndex(column));
+        cursor.close();
+        return id;
     }
 
     public class DBUtility extends SQLiteOpenHelper

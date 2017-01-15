@@ -48,13 +48,14 @@ public class TestUtility {
         cv.put(TEST_NAME,choiceTest.getTest_name());
         cv.put(TEST_AUTHOR,choiceTest.getTest_author());
         cv.put(QUESTION_NO,choiceTest.getTest_question_no());
+        cv.put(MATERIE_ID,choiceTest.getTest_id());
         sqLiteDatabase.insert(TEST_TABLE,null,cv);
     }
 
-    public void writeSubject(String id){
-        ContentValues cv=new ContentValues();
-        cv.put(MATERIE_ID,id);
-    }
+//    public void writeSubject(String id){
+//        ContentValues cv=new ContentValues();
+//        cv.put(MATERIE_ID,id);
+//    }
     public String getTestId(String column)
     {
         Cursor cursor = sqLiteDatabase.query(TEST_TABLE,null,null,null,null, null, null );
