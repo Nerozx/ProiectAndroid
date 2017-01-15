@@ -25,34 +25,34 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="Student List"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:id="@+id/button_search"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:background="@android:color/transparent"
-        android:textSize="18sp"
-        android:textColor="@android:color/background_light"
-        android:textStyle="normal|bold"
-        android:layout_marginBottom="136dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
         android:text="Create A new Test"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:id="@+id/button_create_test"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:background="@android:color/transparent"
+        android:background="@android:color/white"
         android:textSize="18sp"
-        android:textColor="@android:color/background_light"
+        android:textColor="@android:color/background_dark"
         android:textStyle="normal|bold"
         android:textAlignment="center"
         android:fontFamily="sans-serif-medium"
         android:layout_marginBottom="85dp"
         android:layout_above="@+id/button_search"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Student List"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:id="@+id/button_search"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:background="@android:color/white"
+        android:textSize="18sp"
+        android:textColor="@android:color/background_dark"
+        android:textStyle="normal|bold"
+        android:layout_marginBottom="136dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 </RelativeLayout>
