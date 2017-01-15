@@ -48,6 +48,7 @@ public class CreateTestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_test);
+        setTitle("Create test");
         Intent i=getIntent();
         logged_user=(Users)i.getSerializableExtra("logged");
         addQuestion_btn=(Button) findViewById(R.id.question_adder);
@@ -96,6 +97,7 @@ public class CreateTestActivity extends AppCompatActivity {
                 if(lst_err.isEmpty()){
                     writeDB(choiceTest);
                     Intent new_activity=new Intent(CreateTestActivity.this,TestSuccessActivity.class);
+                    new_activity.putExtra("logged", logged_user);
                     CreateTestActivity.this.startActivity(new_activity);
                 }else{
                     int i=0;

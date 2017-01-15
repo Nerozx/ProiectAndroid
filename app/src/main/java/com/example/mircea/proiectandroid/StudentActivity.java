@@ -27,11 +27,12 @@ public class StudentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
 
+
         greeting = (TextView)findViewById(R.id.greet);
 
         Intent i = getIntent();
         final Users loggedUser = (Users)i.getSerializableExtra("userLogat");
-        greeting.setText("Hi, " + loggedUser.getUser_name());
+        setTitle("Hello student " + loggedUser.getUser_name());
 
         startTestButton = (Button)findViewById(R.id.start_button);
         catalogButton = (Button)findViewById(R.id.catalog_button);

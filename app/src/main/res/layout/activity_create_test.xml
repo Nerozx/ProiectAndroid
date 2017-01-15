@@ -48,18 +48,6 @@
         android:layout_toStartOf="@+id/subject_box"
         android:layout_toLeftOf="@+id/subject_box" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="Enter Test Name"
-        android:ems="10"
-        android:id="@+id/test_name_box"
-        android:layout_below="@+id/subject_box"
-        android:layout_alignLeft="@+id/subject_box"
-        android:layout_alignStart="@+id/subject_box"
-        />
-
     <TextView
         android:text="Test Name:"
         android:layout_width="wrap_content"
@@ -89,6 +77,17 @@
         android:text="Add Question"
         android:layout_below="@+id/test_name_box"
        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Enter Test Name"
+        android:ems="10"
+        android:id="@+id/test_name_box"
+        android:layout_below="@+id/subject_box"
+        android:layout_alignLeft="@+id/subject_box"
+        android:layout_alignStart="@+id/subject_box" />
 
 
 </RelativeLayout>

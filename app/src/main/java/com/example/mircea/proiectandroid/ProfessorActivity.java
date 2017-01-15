@@ -27,7 +27,7 @@ public class ProfessorActivity extends AppCompatActivity {
         greeting = (TextView)findViewById(R.id.greeting);
         Intent i = getIntent();
         final Users loggedUser = (Users)i.getSerializableExtra("userLogat");
-        greeting.setText("Hi, " + loggedUser.getUser_name());
+        setTitle("Hello professor " + loggedUser.getUser_name());
         search_btn=(Button) findViewById(R.id.button_search);
         create_btn=(Button) findViewById(R.id.button_create_test);
         create_btn.setOnClickListener(new View.OnClickListener() {

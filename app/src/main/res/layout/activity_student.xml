@@ -8,32 +8,50 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/student"
     tools:context="com.example.mircea.proiectandroid.StudentActivity">
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="HI I AM A STUDENT"
-    android:id="@+id/greet" />
 
-    <Button
-        android:text="Start Test"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="156dp"
-        android:id="@+id/start_button"
-        android:layout_below="@+id/textView"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView" />
+        android:text="Choose an option to begin"
+        android:id="@+id/greet"
+        android:layout_marginTop="46dp"
+        android:textSize="24sp"
+        android:textStyle="normal|bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/background_dark" />
 
     <Button
         android:text="Catalog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
         android:id="@+id/catalog_button"
-        android:layout_alignBaseline="@+id/start_button"
-        android:layout_alignBottom="@+id/start_button"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="70dp"
-        android:layout_marginEnd="70dp" />
+        android:layout_marginTop="43dp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:background="@android:color/transparent"
+        android:textStyle="normal|bold"
+        android:textSize="24sp"
+        android:textColor="@android:color/background_dark"
+        android:layout_below="@+id/start_button"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="TAKE TEST"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:id="@+id/start_button"
+        android:background="@android:color/transparent"
+        android:elevation="0dp"
+        android:fontFamily="sans-serif"
+        android:textSize="24sp"
+        android:textAllCaps="false"
+        android:textAlignment="center"
+        android:textStyle="normal|bold"
+        android:layout_marginTop="151dp"
+        android:layout_below="@+id/greet"
+        android:layout_alignLeft="@+id/catalog_button"
+        android:layout_alignStart="@+id/catalog_button"
+        android:textColor="@android:color/background_dark" />
 </RelativeLayout>

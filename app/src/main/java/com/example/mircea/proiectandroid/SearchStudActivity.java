@@ -29,6 +29,7 @@ public class SearchStudActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_stud);
+        setTitle("Student list");
 
         Intent intent=getIntent();
         String[] stud=intent.getStringArrayExtra("stud");
