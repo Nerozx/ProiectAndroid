@@ -5,11 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mircea.proiectandroid.database.AnswerUtility;
 import com.example.mircea.proiectandroid.database.DatabaseHelper;
@@ -24,6 +26,7 @@ import java.util.List;
 
 public class TestActivity extends AppCompatActivity {
     private LinearLayout linearLayout;
+    private Button submit_btn;
     private ChoiceTest choiceTest;
 
     @Override
@@ -33,13 +36,89 @@ public class TestActivity extends AppCompatActivity {
         Intent intent=getIntent();
         choiceTest=(ChoiceTest) intent.getSerializableExtra("choicetest");
         linearLayout=(LinearLayout) findViewById(R.id.test_zone);
+        submit_btn=(Button)findViewById(R.id.submit_btn);
+        submit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            List<TestQuestion> lst_question=getTestResults();
+            float mark=getFinalMark(lst_question);
+                Toast toast=new Toast(TestActivity.this);
+                toast.setText(String.valueOf(mark));
+                toast.show();
+            }
+        });
         getTest();
         createTest();
 
     }
 
+    private float getFinalMark(List<TestQuestion> lst_question){
+        float mark=10;
+        List<TestQuestion> lst_correct=choiceTest.getTest_question_lst();
+        for(int i=0;i<lst_correct.size();i++){
+            TestQuestion testQuestion_correct=lst_correct.get(i);
+            TestQuestion testQuestion_user=lst_question.get(i);
+            List<TestAnswer> lst_answer_correct=testQuestion_correct.getQuestion_answer_list();
+            int matches=noMatch(lst_answer_correct);
+            List<TestAnswer> lst_answer_user=testQuestion_user.getQuestion_answer_list();
+            int correct=0;
+            for(int j=0;j<lst_answer_correct.size();j++){
+                TestAnswer testAnswer_correct=lst_answer_correct.get(i);
+                TestAnswer testAnswer_user=lst_answer_user.get(i);
+                if(testAnswer_correct.isAnswer_right()==testAnswer_user.isAnswer_right()){
+                    correct++;
+                }
+            }
+            if(matches==correct){
+                mark=mark+testQuestion_correct.getQuestion_points();
+            }
+        }
+        return mark;
+    }
 
-    private  void getTest(){
+    private int noMatch(List<TestAnswer> lst){
+        int match=0;
+        for (TestAnswer answer:lst) {
+         if(answer.isAnswer_right()==1){
+             match++;
+         }
+        }
+        return match;
+    }
+
+    private List<TestQuestion> getTestResults(){
+        List<TestQuestion> testQuestions=new ArrayList<>();
+        List<TestAnswer> testAnswers=new ArrayList<>();
+
+        for(int i=0;i<linearLayout.getChildCount();i++){
+            Object v=linearLayout.getChildAt(i);
+            if(v instanceof CheckBox){
+                CheckBox check=(CheckBox) v;
+                TestAnswer testAnswer=new TestAnswer();
+                testAnswer.setAnswer_right(check.isChecked()? 1:0);
+                testAnswers.add(testAnswer);
+            }else if(v instanceof RadioButton){
+                RadioButton radioButton=(RadioButton) v;
+                TestAnswer testAnswer=new TestAnswer();
+                testAnswer.setAnswer_right(radioButton.isChecked()? 1:0);
+                testAnswers.add(testAnswer);
+            }else if(v instanceof TextView){
+                if(!testAnswers.isEmpty()){
+                 TestQuestion question=new TestQuestion();
+                    question.setQuestion_answer_list(testAnswers);
+                    testAnswers=new ArrayList<>();
+                    testQuestions.add(question);
+                }
+            }
+        }
+        TestQuestion question=new TestQuestion();
+        question.setQuestion_answer_list(testAnswers);
+        testQuestions.add(question);
+
+        return testQuestions;
+    }
+
+    private void getTest(){
         DatabaseHelper myDBHelper=new DatabaseHelper(this);
         try {
             myDBHelper.openDataBase();
