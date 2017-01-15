@@ -49,6 +49,17 @@ public class CatalogUtility {
         sqLiteDatabase.close();
     }
 
+    public void insertMark(String id_user,String id_materie, String id_test, float punctaj){
+        ContentValues cv=new ContentValues();
+        cv.put(USER_ID,id_user);
+        cv.put(MATERIE_ID,id_materie);
+        cv.put(TEST_ID,id_test);
+        cv.put(PUNCTAJ,punctaj);
+        sqLiteDatabase.insert(PUNCTAJ_TABLE,null,cv);
+
+    }
+
+
     public List<Catalog> getCatalog(String userId)
     {
         final String query="select * from PUNCTAJ punct INNER JOIN MATERII mat on punct.IDMaterie=mat._id where punct.IDUser=?";

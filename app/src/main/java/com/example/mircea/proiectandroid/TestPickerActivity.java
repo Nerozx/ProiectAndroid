@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.example.mircea.proiectandroid.database.DatabaseHelper;
 import com.example.mircea.proiectandroid.database.TestUtility;
 import com.example.mircea.proiectandroid.model.ChoiceTest;
+import com.example.mircea.proiectandroid.model.Users;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,12 +41,15 @@ public class TestPickerActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
         listView=(ListView)findViewById(R.id.testpicker_lstv);
         listView.setAdapter(arrayAdapter);
+       Intent intent=getIntent();
+        final Users logged_user=(Users) intent.getSerializableExtra("userLogat");
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 Intent new_activity=new Intent(TestPickerActivity.this,TestActivity.class);
                 new_activity.putExtra("choicetest",choiceTests.get(i));
+                new_activity.putExtra("userLogat",logged_user);
                 TestPickerActivity.this.startActivity(new_activity);
 
             }

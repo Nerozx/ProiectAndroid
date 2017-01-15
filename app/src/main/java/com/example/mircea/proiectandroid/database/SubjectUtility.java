@@ -56,6 +56,19 @@ public class SubjectUtility {
         cursor.close();
         return id;
     }
+    public String getSubjectId(String column,String subjname)
+    {
+        Cursor cursor = sqLiteDatabase.query(SUBJECT_TABLE,null,SUBJECT_NAME+"=?",new String[]{subjname},null, null, null );
+        if(cursor.getCount()<1)
+        {
+            cursor.close();
+            return "NOT EXIST";
+        }
+        cursor.moveToLast();
+        String id = cursor.getString(cursor.getColumnIndex(column));
+        cursor.close();
+        return id;
+    }
 
     public class DBUtility extends SQLiteOpenHelper
     {

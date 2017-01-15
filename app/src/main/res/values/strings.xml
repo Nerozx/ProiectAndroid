@@ -5,5 +5,5 @@
     <string name="correct_answer">Correct Answer!</string>
     <string name="insert_answer">Insert Answer Here!</string>
     <string name="insert_question">Insert Question Here</string>
-    <string name="pct_obt">" punctaj obtinut: "</string>
+    <string name="pct_obt">punctaj obtinut:</string>
 </resources>

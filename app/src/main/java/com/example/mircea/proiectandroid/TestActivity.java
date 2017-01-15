@@ -18,12 +18,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mircea.proiectandroid.database.AnswerUtility;
+import com.example.mircea.proiectandroid.database.CatalogUtility;
 import com.example.mircea.proiectandroid.database.DatabaseHelper;
 import com.example.mircea.proiectandroid.database.QuestionUtility;
+import com.example.mircea.proiectandroid.database.SubjectUtility;
 import com.example.mircea.proiectandroid.model.AnsCheck;
 import com.example.mircea.proiectandroid.model.ChoiceTest;
 import com.example.mircea.proiectandroid.model.TestAnswer;
 import com.example.mircea.proiectandroid.model.TestQuestion;
+import com.example.mircea.proiectandroid.model.Users;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -45,6 +48,7 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
         Intent intent=getIntent();
         choiceTest=(ChoiceTest) intent.getSerializableExtra("choicetest");
+        final Users logged_user=(Users)intent.getSerializableExtra("userLogat");
         linearLayout=(LinearLayout) findViewById(R.id.test_zone);
         submit_btn=(Button)findViewById(R.id.submit_btn);
 
@@ -57,10 +61,24 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 float mark=getFinalMark();
+                DatabaseHelper myDBHelper=new DatabaseHelper(TestActivity.this);
+                try {
+                    myDBHelper.openDataBase();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                SubjectUtility subject=new SubjectUtility(TestActivity.this);
+                CatalogUtility catalogutil=new CatalogUtility(TestActivity.this);
+                subject.openDB();
+                catalogutil.openDB();
+                String id_subj=subject.getSubjectId(subject.SUBJECT_ID,choiceTest.getTest_subject());
+                catalogutil.insertMark(String.valueOf(logged_user.getUser_id()),id_subj,String.valueOf(choiceTest.getTest_id()),mark);Log.i("ID SUBIECT",String.valueOf(choiceTest.getSubject_id()));
                Intent new_activity=new Intent(TestActivity.this,TestFinishActivity.class);
                 new_activity.putExtra("mark",mark);
                 TestActivity.this.startActivity(new_activity);
-
+                subject.closeDB();
+                catalogutil.closeDB();
+                myDBHelper.close();
 
             }
         });
