@@ -9,6 +9,8 @@ public class AnsCheck {
     private int isRight;
     private int question;
 
+
+
     public int getQuestion() {
         return question;
     }
