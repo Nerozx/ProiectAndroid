@@ -1,5 +1,6 @@
 package com.example.mircea.proiectandroid;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,7 +33,8 @@ public class TestPickerActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         TestUtility testUtility=new TestUtility(this);
-        List<ChoiceTest> choiceTests=testUtility.getTestList();
+        testUtility.openDB();
+        final List<ChoiceTest> choiceTests=testUtility.getTestList();
         String[] list=getListEntry(choiceTests);
         String[] id=getListId(choiceTests);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
@@ -41,6 +43,10 @@ public class TestPickerActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Intent new_activity=new Intent(TestPickerActivity.this,TestActivity.class);
+                new_activity.putExtra("choicetest",choiceTests.get(i));
+                TestPickerActivity.this.startActivity(new_activity);
 
             }
         });
