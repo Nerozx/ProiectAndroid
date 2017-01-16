@@ -2,18 +2,23 @@ package com.example.mircea.proiectandroid;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mircea.proiectandroid.database.CatalogUtility;
 import com.example.mircea.proiectandroid.database.DatabaseHelper;
 import com.example.mircea.proiectandroid.database.LoginUtility;
+import com.example.mircea.proiectandroid.json.JsonParser;
 import com.example.mircea.proiectandroid.model.Users;
+import com.example.mircea.proiectandroid.network.HttpClient;
+import com.example.mircea.proiectandroid.util.Util;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,11 +27,14 @@ public class MainActivity extends AppCompatActivity {
     private EditText username_field;
     private EditText password_field;
     private LoginUtility loginUtility;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        QuoteTask quoteTask=new QuoteTask();
+        quoteTask.execute();
         setTitle("Teste Grila");
 
         //this.deleteDatabase("testeGrila.db");
@@ -80,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         loggedUser.setUser_name(userName);
                         loggedUser.setUser_id(Integer.valueOf(loginUtility.getUser(userName, LoginUtility.USER_ID)));
                         myDbHelper.close();
+                        loginUtility.closeDB();
                         Intent new_activity = new Intent(MainActivity.this, ProfessorActivity.class);
                         new_activity.putExtra("userLogat", loggedUser);
                         MainActivity.this.startActivity(new_activity);
@@ -88,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                         loggedUser.setUser_name(userName);
                         loggedUser.setUser_id(Integer.valueOf(loginUtility.getUser(userName, LoginUtility.USER_ID)));
                         myDbHelper.close();
+                        loginUtility.closeDB();
                         Intent new_activity = new Intent(MainActivity.this, StudentActivity.class);
                         new_activity.putExtra("userLogat", loggedUser);
                         MainActivity.this.startActivity(new_activity);
@@ -98,5 +108,27 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public class QuoteTask extends AsyncTask<Void,Void, String>{
+
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            HttpClient httpClient=new HttpClient();
+            JsonParser jsonParser=new JsonParser();
+            String data=httpClient.getDefaultList(Util.BASE_URL);
+            String quote=jsonParser.getQuote(data);
+
+            return quote;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            textView=(TextView) findViewById(R.id.quote_zone);
+            textView.setText(s);
+        }
     }
 }

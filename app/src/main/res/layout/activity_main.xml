@@ -27,6 +27,7 @@
         android:ems="10"
         android:hint="Password"
         android:id="@+id/password_field"
+        android:maxLines="1"
         android:layout_marginTop="19dp"
         android:layout_below="@+id/username_field"
         android:layout_centerHorizontal="true"
@@ -40,7 +41,7 @@
         android:ems="10"
         android:id="@+id/username_field"
         android:layout_marginTop="34dp"
-        android:singleLine="true"
+        android:maxLines="1"
         android:selectAllOnFocus="false"
         android:textAlignment="center"
         android:layout_below="@+id/welcomeView"
@@ -56,5 +57,16 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="26dp" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:id="@+id/quote_zone"
+        android:textSize="14sp"
+        android:textAlignment="center"/>
 
 </RelativeLayout>
